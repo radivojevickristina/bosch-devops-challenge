@@ -1,7 +1,7 @@
 const app=require('./app')
 const {createClient}=require('redis')
 const port=Number(process.env.APP_PORT)
-
+let redisErrorLogged = false;
 
 app.listen(port, '0.0.0.0', () =>{
     console.log('Server is running on port ', port)
@@ -20,8 +20,18 @@ async function connectToRedis() {
     console.log('Redis connected successfully')
 }
 
-redisClient.on('error', (error)=>{
-    console.error("Redis error: ", error.message)
-})
+redisClient.on('error', (error) => {
+    if (!redisErrorLogged) {
+        console.error('Redis error:', error.message)
+        redisErrorLogged = true
+    }
+});
+
+redisClient.on('ready', () => {
+    if (redisErrorLogged) {
+        console.log('Redis connection restored')
+    }
+    redisErrorLogged = false
+});
 
 connectToRedis()
