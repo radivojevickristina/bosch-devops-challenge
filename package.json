@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/radivojevickristina/bosch-devops-challenge/issues"
   },
-  "homepage": "https://github.com/radivojevickristina/bosch-devops-challenge#readme"
+  "homepage": "https://github.com/radivojevickristina/bosch-devops-challenge#readme",
+  "dependencies": {
+    "express": "^5.3.0",
+    "redis": "^6.3.1"
+  }
 }
