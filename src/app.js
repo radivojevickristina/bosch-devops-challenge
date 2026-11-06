@@ -24,19 +24,41 @@ app.route('/').get(
 app.route('/visits').get(
     async (req, res) => {
         try {
-            const redisClient = req.app.locals.redisClient;
-            const count = await redisClient.incr('visits');
+            const redisClient = req.app.locals.redisClient
+            const count = await redisClient.incr('visits')
             res.json({visits: count})
 
         } catch (error) {
-            console.error('Redis operation failed:', error.message);
+            console.error('Redis operation failed:', error.message)
 
             return res.status(503).json({
                 error: 'Redis unavailable'
-            });
+            })
         }
         
     }
 )
+
+app.route('/health').get(
+    async (req, res) => {
+        try {
+            const redisClient = req.app.locals.redisClient
+            const response=await redisClient.ping()
+            if(response==="PONG"){
+                return res.status(200).json({
+                    status:"ok"
+                })
+            }
+
+        } catch (error) {
+
+            return res.status(503).json({
+                status:"error"
+            })
+        }
+        
+    }
+)
+
 
 module.exports=app
