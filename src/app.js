@@ -21,5 +21,22 @@ app.route('/').get(
     }
 )
 
+app.route('/visits').get(
+    async (req, res) => {
+        try {
+            const redisClient = req.app.locals.redisClient;
+            const count = await redisClient.incr('visits');
+            res.json({visits: count})
+
+        } catch (error) {
+            console.error('Redis operation failed:', error.message);
+
+            return res.status(503).json({
+                error: 'Redis unavailable'
+            });
+        }
+        
+    }
+)
 
 module.exports=app
