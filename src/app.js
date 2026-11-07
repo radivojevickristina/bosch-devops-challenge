@@ -28,7 +28,7 @@ app.route('/visits').get(
             const count = await redisClient.incr('visits')
             res.json({visits: count})
 
-        } catch (error) {
+        } catch {
             return res.status(503).json({
                 error: "Redis unavailable"
             })
@@ -48,7 +48,7 @@ app.route('/health').get(
                 })
             }
 
-        } catch (error) {
+        } catch{
 
             return res.status(503).json({
                 status:"error"
