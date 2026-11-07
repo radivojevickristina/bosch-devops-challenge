@@ -2,7 +2,7 @@
   "name": "bosch-devops-challenge",
   "version": "1.0.0",
   "description": "Node.js visit counter application with Redis, Docker and CI/CD",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "node --test tests/test.js",
     "lint": "eslint ."
