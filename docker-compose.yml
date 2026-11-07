@@ -1,0 +1,28 @@
+services:
+ app:
+   build: .
+   ports:
+    - "127.0.0.1:${APP_PORT}:${APP_PORT}"
+   env_file:
+    - .env
+   restart: unless-stopped
+ redis:
+  image: redis:7.4-alpine
+  volumes:
+   - redis_data:/data
+  command:
+   - redis-server
+   - --appendonly
+   - 'yes'
+  restart: unless-stopped
+  healthcheck:
+   test: 
+    - "CMD"
+    - "redis-cli"
+    - "ping"
+   interval: 5s
+   timeout: 3s
+   retries: 5
+
+volumes: 
+ redis_data: 
