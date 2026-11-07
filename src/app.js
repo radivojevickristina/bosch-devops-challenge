@@ -28,11 +28,9 @@ app.route('/visits').get(
             const count = await redisClient.incr('visits')
             res.json({visits: count})
 
-        } catch (error) {
-            console.error('Redis operation failed:', error.message)
-
+        } catch {
             return res.status(503).json({
-                error: 'Redis unavailable'
+                error: "Redis unavailable"
             })
         }
         
