@@ -49,6 +49,9 @@ app.route('/health').get(
                     status:"ok"
                 })
             }
+            return res.status(503).json({
+                status: "error"
+            })
 
         } catch{
 
