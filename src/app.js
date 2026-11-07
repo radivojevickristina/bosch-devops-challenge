@@ -50,7 +50,7 @@ app.route('/health').get(
                 })
             }
 
-        } catch {
+        } catch{
 
             return res.status(503).json({
                 status:"error"
